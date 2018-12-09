@@ -703,6 +703,10 @@ class MkvtoMp4:
             options['preopts'].extend(['-hwaccel', 'dxva2'])
         elif info.video.codec.lower() == "hevc" and self.hevc_qsv_decoder:
             options['preopts'].extend(['-vcodec', 'hevc_qsv'])
+        elif vcodec == "h264vaapi":
+            options['preopts'].extend(['-vaapi_device', '/dev/dri/renderD128'])
+            options['preopts'].extend(['-hwaccel', 'vaapi'])
+            options['preopts'].extend(['-hwaccel_output_format', 'vaapi'])
         elif vcodec == "h264qsv" and info.video.codec.lower() == "h264" and self.qsv_decoder and (info.video.video_level / 10) < 5:
             options['preopts'].extend(['-vcodec', 'h264_qsv'])
 
